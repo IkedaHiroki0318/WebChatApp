@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+
+<link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<!-- ヘッダー（使い回し） -->
+<div class="header">
+    <div class="title"><a href="/">My Chat App</a></div>
+    <div class="header-buttons">
+        <a href="/login" class="btn login">ログイン</a>
+        <a href="/register" class="btn register">新規登録</a>
+    </div>
+</div>
+
+<!-- 中央フォーム -->
+<div class="auth-container">
+
+    <h2>ログイン</h2>
+
+    <form method="POST">
+        <input type="text" name="username" placeholder="ユーザー名" required>
+        <input type="password" name="password" placeholder="パスワード" required>
+
+        <button type="submit">ログイン</button>
+    </form>
+
+    <p class="switch-text">
+    アカウントがありませんか？
+    <a href="/register">新規登録はこちら</a>
+    </p>
+
+    <!-- ゲストボタン -->
+    <a href="/" class="guest-btn">ゲストとして続ける</a>
+
+</div>
+
+</body>
+</html>

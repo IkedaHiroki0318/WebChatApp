@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>マイページ</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<div class="header">
+    <div class="title"><a href="/">My Chat App</a></div>
+    <div class="header-buttons">
+        <a href="/" class="btn">チャット</a>
+        <a href="/logout" class="btn logout">ログアウト</a>
+    </div>
+</div>
+
+<div class="mypage-container">
+
+    <h2>マイページ</h2>
+
+    <!-- 現在のアイコン -->
+    <div class="icon-preview">
+        <img src="/static/icons/{{ icon[0] if icon else 'default.png' }}">
+    </div>
+
+    <!-- アップロード -->
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="icon" accept="image/png">
+        <button type="submit">アイコン変更</button>
+    </form>
+
+    <h3>フレンド追加</h3>
+
+<form method="POST" action="/add_friend">
+    <input name="friend_name" placeholder="ユーザー名">
+    <button type="submit">追加</button>
+</form>
+
+<!-- フレンド申請 -->
+{% for r in requests %}
+<div class="request-item">
+    <span>{{ r[0] }}</span>
+    <form method="POST" action="/accept_friend">
+        <input type="hidden" name="requester" value="{{ r[0] }}">
+        <button>承認</button>
+    </form>
+</div>
+{% endfor %}
+
+<!-- フレンド一覧 -->
+<ul>
+{% for f in friends %}
+<li class="friend-item">
+    <span>{{ f[0] }}</span>
+    <form method="POST" action="/remove_friend">
+        <input type="hidden" name="friend_name" value="{{ f[0] }}">
+        <button>削除</button>
+    </form>
+</li>
+{% endfor %}
+</ul>
+</ul>
+
+</div>
+
+
+</body>
+</html>

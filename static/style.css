@@ -1,0 +1,378 @@
+/* ===== 全体設定 ===== */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+    background: #2c2f33;
+    color: white;
+    margin: 0;
+    padding-top: 60px;
+    /* 固定ヘッダー分 */
+}
+
+/* ===== ヘッダー ===== */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    background: #23272a;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* タイトル */
+.title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.title a {
+    color: white;
+    text-decoration: none;
+}
+
+/* ヘッダーボタン */
+.header-buttons {
+    display: flex;
+}
+
+/* ナビボタン */
+.btn {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 15px;
+    color: white;
+    text-decoration: none;
+    background: transparent;
+    transition: 0.2s;
+}
+
+/* ホバー */
+.btn:hover {
+    background: #2c2f33;
+}
+
+/* ログアウトだけ赤 */
+.logout:hover {
+    background: #ED4245;
+}
+
+/* ===== チャット全体 ===== */
+.chat-container {
+    width: 95%;
+    max-width: 900px;
+    margin: 20px auto;
+    height: calc(100vh - 80px);
+    display: flex;
+    flex-direction: column;
+}
+
+/* メッセージエリア */
+#messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+    scroll-behavior: smooth;
+}
+
+/* 他人メッセージ */
+.other-message {
+    background: #40444b;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 5px;
+    max-width: 70%;
+    animation: fadeIn 0.3s ease;
+}
+
+/* 自分メッセージ */
+.my-message {
+    background: #5865f2;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 5px;
+    max-width: 70%;
+    margin-left: auto;
+    animation: fadeIn 0.3s ease;
+}
+
+/* ===== 入力欄 ===== */
+.input-area {
+    display: flex;
+    padding: 10px;
+    background: #23272a;
+}
+
+/* 入力 */
+input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    transition: 0.2s;
+}
+
+input:focus {
+    outline: none;
+    box-shadow: 0 0 5px #5865F2;
+}
+
+/* 送信ボタン */
+button {
+    margin-left: 10px;
+    padding: 10px;
+    border: none;
+    background: #5865F2;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(1px) scale(0.97);
+}
+
+/* ===== アニメーション ===== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== スマホ対応 ===== */
+@media (max-width:600px) {
+    .chat-container {
+        width: 100%;
+        margin: 0;
+        height: calc(100vh - 60px);
+    }
+
+    .input-area {
+        padding: 5px;
+    }
+
+    input {
+        font-size: 16px;
+    }
+}
+
+/* メッセージ全体 */
+.message-container {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+}
+
+/* 自分のメッセージ */
+.message-container.me {
+    align-items: flex-end;
+}
+
+/* ユーザー名 */
+.username {
+    font-size: 12px;
+    color: #aaa;
+    margin-bottom: 2px;
+}
+
+/* 自分の名前 */
+.message-container.me .username {
+    text-align: right;
+}
+
+.login:hover {
+    background: #5865F2;
+}
+
+.username {
+    color: #aaa;
+}
+
+/* ===== ログイン画面 ===== */
+.auth-container {
+    width: 90%;
+    max-width: 400px;
+    margin: 100px auto;
+    background: #23272a;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.auth-container h2 {
+    margin-bottom: 20px;
+}
+
+.auth-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.auth-container input {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.auth-container button {
+    padding: 10px;
+}
+
+/* ゲストボタン */
+.guest-btn {
+    display: block;
+    margin-top: 10px;
+    padding: 10px;
+    background: #40444b;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: 0.2s;
+}
+
+.guest-btn:hover {
+    background: #5865F2;
+}
+
+.switch-text {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #aaa;
+}
+
+.switch-text a {
+    color: #5865F2;
+    text-decoration: none;
+}
+
+.switch-text a:hover {
+    text-decoration: underline;
+}
+
+.system-message {
+    text-align: center;
+    color: #aaa;
+    font-size: 13px;
+    margin: 10px 0;
+}
+
+.time {
+    font-size: 10px;
+    color: #aaa;
+    margin-top: 2px;
+}
+
+.icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    height: 60px;
+    padding: 0 15px;
+    text-decoration: none;
+    color: white;
+    background: transparent;
+    transition: 0.2s;
+}
+
+.btn:hover {
+    background: #2c2f33;
+}
+
+.mypage-container {
+    max-width: 400px;
+    margin: 100px auto;
+    background: #23272a;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.icon-preview img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+/* ===== マイページ専用（完全分離） ===== */
+
+/* フレンド追加フォーム */
+.mypage-container form[action="/add_friend"]{
+    display:flex;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+/* 申請リスト */
+.mypage-container .request-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#40444b;
+    padding:10px;
+    border-radius:8px;
+    margin:5px 0;
+}
+
+/* フレンド一覧 */
+.mypage-container .friend-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#40444b;
+    padding:10px;
+    border-radius:8px;
+    margin:5px 0;
+}
+
+/* ulのリセット（マイページだけ） */
+.mypage-container ul{
+    list-style:none;
+    padding:0;
+}
+
+/* フレンド削除ボタン */
+.mypage-container .friend-item button{
+    background:#ED4245;
+}
+
+.mypage-container .friend-item button:hover{
+    background:#C03537;
+}
+
+/* 承認ボタン */
+.mypage-container .request-item button{
+    background:#57F287;
+    color:black;
+}
+
+.mypage-container .request-item button:hover{
+    background:#45c96f;
+}

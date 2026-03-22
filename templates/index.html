@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Chat</title>
+
+<link rel="stylesheet" href="/static/style.css">
+<script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+</head>
+
+<body>
+
+<div class="header">
+    <div class="title"><a href="/">からあげチャット</a></div>
+
+    <div class="header-buttons">
+        {% if username %}
+            <a href="/mypage" class="btn mypage">マイページ</a>
+            <a href="/logout" class="btn logout">ログアウト</a>
+        {% else %}
+            <a href="/login" class="btn login">ログイン</a>
+            <a href="/register" class="btn register">新規登録</a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="chat-container">
+
+<h3>
+{% if username %}
+    {{ username }} でログイン中
+{% else %}
+    ゲストとして参加中
+{% endif %}
+</h3>
+
+<div id="messages">
+
+{% for username, message, time in messages %}
+    <div class="message-container">
+        <div class="username">{{ username }}</div>
+        <div class="other-message">{{ message }}</div>
+        <div class="time">{{ time }}</div>
+    </div>
+{% endfor %}
+
+</div>
+
+<div class="input-area">
+<input id="msg" placeholder="メッセージを入力">
+<button onclick="sendMessage()">送信</button>
+</div>
+
+</div>
+
+<script>
+const socket = io();
+const username = "{{ username }}";
+
+let myId = null;  // ← const → let に変更
+
+// 接続したらIDを取得
+socket.on("connect", function(){
+    myId = socket.id;
+    console.log("自分のID:", myId);
+});
+
+socket.on("message", function(data){
+    const div = document.getElementById("messages");
+
+    // システムメッセージ
+    if(data.type === "system"){
+        const sys = document.createElement("div");
+        sys.className = "system-message";
+        sys.innerText = data.message;
+        div.appendChild(sys);
+        return;
+    }
+
+    // 通常メッセージ
+    const isMe = data.sid === myId;
+
+    const container = document.createElement("div");
+    container.className = isMe ? "message-container me" : "message-container";
+
+    const name = document.createElement("div");
+    name.className = "username";
+    name.innerText = data.username;
+
+    const message = document.createElement("div");
+    message.className = isMe ? "my-message" : "other-message";
+    message.innerText = data.message;
+
+    const time = document.createElement("div");
+    time.className = "time";
+    time.innerText = data.time;
+
+    const img = document.createElement("img");
+    img.src = "/static/icons/" + data.icon;
+    img.className = "icon";
+
+container.appendChild(img);
+
+    container.appendChild(name);
+    container.appendChild(message);
+    container.appendChild(time);
+
+    container.appendChild(name);
+    container.appendChild(message);
+    div.appendChild(container);
+
+    div.scrollTop = div.scrollHeight;
+});
+
+function sendMessage(){
+    const input = document.getElementById("msg");
+
+    if(input.value.trim() === "") return;
+
+    socket.send(input.value);
+    input.value = "";
+}
+
+document.getElementById("msg").addEventListener("keypress", function(e){
+    if(e.key === "Enter"){
+        sendMessage();
+    }
+});
+
+if(!isMe){
+    container.appendChild(name);
+}
+</script>
+
+</body>
+</html>
